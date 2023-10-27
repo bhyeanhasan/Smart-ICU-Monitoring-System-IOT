@@ -15,7 +15,7 @@ async def main():
             while 1:
                 try:
                     data = json.dumps({
-                        'temperature': str(random.randint(100, 500)),
+                        'temperature': str(random.randint(85, 120)),
                         'time': str(datetime.now())
                     })
                     await websocket.send(data)
