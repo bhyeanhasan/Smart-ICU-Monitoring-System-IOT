@@ -13,6 +13,7 @@ websocket.onmessage = function (e) {
 const fetchDashboardData = async () => {
     const response = await fetch('http://192.168.0.105:8000/dashboardData')
     const data = await response.json()
+    console.log(data)
     return data
 }
 

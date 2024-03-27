@@ -4,6 +4,7 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from app_temperature.models import Temperature
+from asgiref.sync import sync_to_async
 
 
 def home(request):

@@ -1,6 +1,7 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Temperature
 from channels.db import database_sync_to_async
+import asyncio
 
 
 class TemperatureConsumer(AsyncJsonWebsocketConsumer):
@@ -30,7 +31,23 @@ class DashboardConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({'message': 'Connected'})
 
     async def receive_json(self, content, **kwargs):
-        await self.send_json({'message': content['message']})
+        async def get_objects():
+            data = Temperature.objects.all()
+            return data
+
+        objects = await asyncio.to_thread(get_objects)
+        cnt = 0
+        print(objects)
+        y = []
+        x = []
+        for object in objects:
+            cnt += 1
+            y.append(int(object.patient_temp))
+            x.append(cnt)
+        print(x)
+        await self.send_json({'message': x})
+
+
 
     async def close(self, code=None):
         print("Connection Closed ", code)
