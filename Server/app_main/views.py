@@ -1,21 +1,20 @@
-import json
-
-from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from app_temperature.models import Temperature
-from asgiref.sync import sync_to_async
+from datetime import datetime
 
 
 def home(request):
-    temperatures = Temperature.objects.all().order_by('-id')[:10]
-    x =[]
-    y =[]
-    for index,temp in enumerate(temperatures):
+    temperatures = Temperature.objects.all().order_by('-id')[:5]
+    x = []
+    y = []
+    z = []
+    for index, temp in enumerate(temperatures):
         x.append(index)
         y.append(temp.patient_temp)
-
-    return render(request, 'home.html',{"x":x,"y":y})
+        z.append(temp.time)
+    print(datetime.now())
+    return render(request, 'home.html', {"x": x, "y": y, "z": z})
 
 
 def dashboardData(request):

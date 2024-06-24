@@ -13,3 +13,7 @@ python -m pip install -U channels["daphne"]
 ### Super User
 * username : pstu
 * password: 1234
+
+```python
+
+```

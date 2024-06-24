@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <meta http-equiv="refresh" content="2; URL=#">
+    <meta http-equiv="refresh" content="2; URL=#">
 
     <title>Advanced Health Monitoring System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,18 +22,30 @@
 <div class="container">
     <div class="row">
         <div class="text-center my-3">
+            <h1>IOT Based Advanced Health Monitoring System</h1>
             <h2>Welcome</h2>
-            <h3>IOT Based Advanced Health Monitoring System</h3>
+            <hr>
         </div>
     </div>
 
     <div class="row">
 
-        <div  class="col-md-6">
-            <canvas  id="myChart"></canvas>
-            <div class="description text-center my-3">
-                <h4>Last 10 Records of Temperature</h4>
+        <div class="col-md-6 b">
+            <div class="row">
+
+                <canvas id="myChart"></canvas>
+            
+             <div class="col-1"> </div>
+
+                {% for t in z %}
+                    <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>
+                {% endfor %}
+
+                <div class="description text-center my-3">
+                    <h5>Last 5 Records of Temperature</h5>
+                </div>
             </div>
+
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
