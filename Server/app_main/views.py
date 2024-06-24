@@ -8,7 +8,14 @@ from asgiref.sync import sync_to_async
 
 
 def home(request):
-    return render(request, 'home.html')
+    temperatures = Temperature.objects.all().order_by('-id')[:10]
+    x =[]
+    y =[]
+    for index,temp in enumerate(temperatures):
+        x.append(index)
+        y.append(temp.patient_temp)
+
+    return render(request, 'home.html',{"x":x,"y":y})
 
 
 def dashboardData(request):

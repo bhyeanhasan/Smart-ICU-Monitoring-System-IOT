@@ -17,11 +17,10 @@ class TemperatureConsumer(AsyncJsonWebsocketConsumer):
         time = content['time']
         print(patient_temperature)
         await self.send_json({'temperature': patient_temperature})
-        # temperature = Temperature()
-        # temperature.patient_temp = patient_temperature
-        # temperature.time = time
-        # await database_sync_to_async(temperature.save)()
-        # await self.send_json({'message':'okay got it'})
+        temperature = Temperature()
+        temperature.patient_temp = patient_temperature
+        temperature.time = time
+        await database_sync_to_async(temperature.save)()
 
     async def close(self, code=None):
         print("Connection Closed ", code)
