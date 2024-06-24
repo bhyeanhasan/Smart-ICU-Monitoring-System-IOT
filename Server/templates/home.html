@@ -12,7 +12,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
-    <script src="{% static 'temperature.js' %}" defer></script>
+{#    <script src="{% static 'temperature.js' %}" defer></script>#}
 </head>
 <body>
 <div class="container">
@@ -27,6 +27,22 @@
         <canvas id="myChart" style="width:100%"></canvas>
     </div>
 </div>
+
+ <h1>Temperature: <span id="temperature">Loading...</span>°C</h1>
+    <script>
+        const temperatureElement = document.getElementById('temperature');
+        const socket = new WebSocket('ws://192.168.0.198:8000/ws/temperature/');
+
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            alert(data.temperature)
+            temperatureElement.textContent = data.temperature;
+        };
+
+        socket.onclose = function(e) {
+            console.error('WebSocket closed unexpectedly');
+        };
+    </script>
 
 <div class="">
 

@@ -5,7 +5,7 @@ import time
 import websockets
 from datetime import datetime
 
-link = 'ws://192.168.0.105:8000/ws/temperature/'
+link = 'ws://192.168.0.198:8000/ws/temperature/'
 
 
 async def main():

@@ -1,3 +1,5 @@
+import json
+
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Temperature
 from channels.db import database_sync_to_async
@@ -14,10 +16,11 @@ class TemperatureConsumer(AsyncJsonWebsocketConsumer):
         patient_temperature = content['temperature']
         time = content['time']
         print(patient_temperature)
-        temperature = Temperature()
-        temperature.patient_temp = patient_temperature
-        temperature.time = time
-        await database_sync_to_async(temperature.save)()
+        await self.send_json({'temperature': patient_temperature})
+        # temperature = Temperature()
+        # temperature.patient_temp = patient_temperature
+        # temperature.time = time
+        # await database_sync_to_async(temperature.save)()
         # await self.send_json({'message':'okay got it'})
 
     async def close(self, code=None):
@@ -46,8 +49,6 @@ class DashboardConsumer(AsyncJsonWebsocketConsumer):
             x.append(cnt)
         print(x)
         await self.send_json({'message': x})
-
-
 
     async def close(self, code=None):
         print("Connection Closed ", code)

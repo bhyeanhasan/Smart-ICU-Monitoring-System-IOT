@@ -1,4 +1,4 @@
-const websocket = new WebSocket('ws://192.168.0.105:8000/ws/dashboard/')
+const websocket = new WebSocket('ws://192.168.0.198:8000/ws/dashboard/')
 
 websocket.onopen = function (e) {
     websocket.send(JSON.stringify({
@@ -11,7 +11,7 @@ websocket.onmessage = function (e) {
 }
 
 const fetchDashboardData = async () => {
-    const response = await fetch('http://192.168.0.105:8000/dashboardData')
+    const response = await fetch('http://192.168.0.198:8000/dashboardData')
     const data = await response.json()
     console.log(data)
     return data
