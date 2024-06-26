@@ -2,7 +2,11 @@
 
 
 ```
+pip install django
 python -m pip install -U channels["daphne"]
+python manage.py runserver 0.0.0.0:8000
+
+192.168.35.62
 ```
 
 
