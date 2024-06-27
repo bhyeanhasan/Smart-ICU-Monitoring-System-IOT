@@ -12,9 +12,9 @@
     <title>Advanced Health Monitoring System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-
-    {#        <script src="{% static 'temperature.js' %}" defer></script>#}
+    {#      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>#}
+    {#      <script src="{% static 'temperature.js' %}" defer></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
@@ -29,13 +29,69 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12">
+            <canvas id="myLineChart" width="400" height="75"></canvas>
+            <script>
+                var ecg = document.getElementById('myLineChart').getContext('2d');
+                var myLineChart = new Chart(ecg, {
+                    type: 'line',
+                    data: {
+                        labels: {{ ecg_cnt }}, // Your x-axis labels
+                        datasets: [{
+                            label: 'E C G',
+                            data: {{ecg}}, // Your data points
+                            backgroundColor: 'rgb(255,152,0)',
+                            borderColor: 'rgb(255,0,0)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            <h5 class="description text-center my-3"> ECG DATA</h5>
+        </div>
 
-        <div class="col-md-6 b">
+        <div class="col-md-6">
             <div class="row">
 
-                <canvas id="myChart"></canvas>
-            
-             <div class="col-1"> </div>
+                <canvas id="myChart" height="200px"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart');
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ y }},
+                            datasets: [{
+                                label: 'Temperature',
+                                data: {{ y }},
+                                backgroundColor: 'rgb(43,124,237)',
+                                borderColor: 'rgb(9,70,225)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+
+
+                <div class="col-1"></div>
 
                 {% for t in z %}
                     <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>
@@ -48,38 +104,15 @@
 
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script>
-            const ctx = document.getElementById('myChart');
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: {{ y }},
-                    datasets: [{
-                        label: 'Temperature',
-                        data: {{ y }},
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        </script>
     </div>
+
+
 </div>
 
 
-<div class="">
-
-</div>
-
+<div class=""></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
