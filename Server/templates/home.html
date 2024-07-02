@@ -16,12 +16,28 @@
     {#      <script src="{% static 'temperature.js' %}" defer></script>#}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <style>
+
+        .nav-link {
+            background-color: orange;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .nav-link:hover {
+            background-color: antiquewhite;
+        }
+    </style>
+
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="text-center my-3">
+        <div class="text-center">
             <h1>IOT Based Advanced Health Monitoring System</h1>
             <h2>Welcome</h2>
             <hr>
@@ -29,83 +45,132 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <canvas id="myLineChart" width="400" height="75"></canvas>
-            <script>
-                var ecg = document.getElementById('myLineChart').getContext('2d');
-                var myLineChart = new Chart(ecg, {
-                    type: 'line',
-                    data: {
-                        labels: {{ ecg_cnt }}, // Your x-axis labels
-                        datasets: [{
-                            label: 'E C G',
-                            data: {{ecg}}, // Your data points
-                            backgroundColor: 'rgb(255,152,0)',
-                            borderColor: 'rgb(255,0,0)',
-                            borderWidth: 1,
-                            fill: false
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            </script>
-            <h5 class="description text-center my-3"> ECG DATA</h5>
-        </div>
+        <div style="height: 85vh" class="col-md-2 card">
 
-        <div class="col-md-6">
-            <div class="row">
-
-                <canvas id="myChart" height="200px"></canvas>
+            <ul class="nav flex-column text-center">
+                <li class="nav-item">
+                    <a id="download" class="nav-link mt-2" href="#">ECG Report</a>
+                </li>
                 <script>
-                    const ctx = document.getElementById('myChart');
-
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: {{ y }},
-                            datasets: [{
-                                label: 'Temperature',
-                                data: {{ y }},
-                                backgroundColor: 'rgb(43,124,237)',
-                                borderColor: 'rgb(9,70,225)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
+                    document.getElementById('download').addEventListener('click', function () {
+                        const canvas = document.getElementById('myLineChart');
+                        const url = canvas.toDataURL('image/png');
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'ECG.png';
+                        a.click();
                     });
                 </script>
 
-
-                <div class="col-1"></div>
-
-                {% for t in z %}
-                    <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>
-                {% endfor %}
-
-                <div class="description text-center my-3">
-                    <h5>Last 5 Records of Temperature</h5>
-                </div>
-            </div>
+                <li class="nav-item">
+                    <a id="temp" class="nav-link" href="#">Temperature</a>
+                     <script>
+                    document.getElementById('temp').addEventListener('click', function () {
+                        const canvas = document.getElementById('myChart');
+                        const url = canvas.toDataURL('image/png');
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'Temperature.png';
+                        a.click();
+                    });
+                </script>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Oxygen Level</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Heart Rate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'exportData' %}">Export CSV</a>
+                </li>
+            </ul>
 
         </div>
 
+        <div class="col-md-10 ">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-9">
+                        <canvas id="myLineChart" height="75"></canvas>
+                        <script>
+                            var ecg = document.getElementById('myLineChart').getContext('2d');
+                            var myLineChart = new Chart(ecg, {
+                                type: 'line',
+                                data: {
+                                    labels: {{ ecg_cnt }}, // Your x-axis labels
+                                    datasets: [{
+                                        label: 'E C G',
+                                        data: {{ecg}}, // Your data points
+                                        backgroundColor: 'rgb(255,152,0)',
+                                        borderColor: 'rgb(255,0,0)',
+                                        borderWidth: 1,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        x: {
+                                            beginAtZero: true
+                                        },
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                        <h5 class="description text-center my-3"> ECG DATA</h5>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+
+                            <canvas id="myChart" height="250"></canvas>
+                            <script>
+                                const ctx = document.getElementById('myChart');
+
+                                new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: {{ y }},
+                                        datasets: [{
+                                            label: 'Temperature',
+                                            data: {{ y }},
+                                            backgroundColor: 'rgb(43,124,237)',
+                                            borderColor: 'rgb(9,70,225)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
 
 
+                            <div class="col-1"></div>
+
+                            {% for t in z %}
+                                <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>
+                            {% endfor %}
+
+                            <div class="description text-center my-3">
+                                <h5>Last 5 Records of Temperature</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
 

@@ -17,16 +17,18 @@ i2c = io.I2C(board.SCL, board.SDA, frequency=100000)
 mlx = adafruit_mlx90614.MLX90614(i2c)
 # ************************************************************************************** #
 
-# *************************************** ECG ****************************************** #
+# *************************************** Arduino ****************************************** #
 PORT = '/dev/ttyACM0'
 arduino_board = Arduino(PORT)
 time.sleep(0.5)
 ecg_pin = arduino_board.get_pin('a:0:i')
+gsr_pin = arduino_board.get_pin('a:2:i')
 it = util.Iterator(arduino_board)
 it.start()
 
 
 # ************************************************************************************** #
+
 
 async def main():
     try:
@@ -44,10 +46,15 @@ async def main():
                         print("ECG : " + ecg)
                         time.sleep(0.5)
 
+                        gsr = gsr_pin.read()
+                        print("GSR : " + gsr)
+                        time.sleep(0.5)
+
                         # DATA PASSING
                         data = json.dumps({
                             'temperature': str(targetTemp),
                             'ecg': str(ecg),
+                            'gsr': str(gsr),
                             'time': str(datetime.now())
                         })
                         await websocket.send(data)
