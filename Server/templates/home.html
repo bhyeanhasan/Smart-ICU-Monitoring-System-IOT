@@ -19,17 +19,15 @@
     <style>
 
         .nav-link {
-            background-color: orange;
-            margin-bottom: 5px;
-            margin-top: 5px;
-            padding: 10px;
-            border-radius: 5px;
+            font-size: 20px;
             color: white;
+            margin-right: 30px;
         }
 
-        .nav-link:hover {
-            background-color: antiquewhite;
-        }
+        {##}
+        {#        .nav-link:hover {#}
+        {#            background-color: antiquewhite;#}
+        {#        }#}
     </style>
 
 
@@ -38,61 +36,113 @@
 <div class="container-fluid">
     <div class="row">
         <div class="text-center">
-            <h1>IOT Based Advanced Health Monitoring System</h1>
-            <h2>Welcome</h2>
-            <hr>
+            <h1>IOT Based Smart Health Monitoring System</h1>
         </div>
     </div>
 
+    <div class="row mt-0">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary ">
+            <div class="container">
+                <a style="color: white" class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <li class="nav-item">
+                            <a id="download" class="nav-link" href="#">ECG Report</a>
+                        </li>
+                        <script>
+                            document.getElementById('download').addEventListener('click', function () {
+                                const canvas = document.getElementById('myLineChart');
+                                const url = canvas.toDataURL('image/png');
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = 'ECG.png';
+                                a.click();
+                            });
+                        </script>
+
+                        <li class="nav-item">
+                            <a id="temp" class="nav-link" href="#">Temperature</a>
+                            <script>
+                                document.getElementById('temp').addEventListener('click', function () {
+                                    const canvas = document.getElementById('myChart');
+                                    const url = canvas.toDataURL('image/png');
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'Temperature.png';
+                                    a.click();
+                                });
+                            </script>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Oxygen Level</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">Heart Rate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'exportData' %}">Export CSV</a>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
     <div class="row">
-        <div style="height: 85vh" class="col-md-2 card">
+{#        <div style="height: 85vh" class="col-md-2 card">#}
+{##}
+{#            <ul class="nav flex-column text-center">#}
+{#                <li class="nav-item">#}
+{#                    <a id="download" class="nav-link" href="#">ECG Report</a>#}
+{#                    <script>#}
+{#                        document.getElementById('download').addEventListener('click', function () {#}
+{#                            const canvas = document.getElementById('myLineChart');#}
+{#                            const url = canvas.toDataURL('image/png');#}
+{#                            const a = document.createElement('a');#}
+{#                            a.href = url;#}
+{#                            a.download = 'ECG.png';#}
+{#                            a.click();#}
+{#                        });#}
+{#                    </script>#}
+{##}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a id="temp" class="nav-link" href="#">Temperature</a>#}
+{#                    <script>#}
+{#                        document.getElementById('temp').addEventListener('click', function () {#}
+{#                            const canvas = document.getElementById('myChart');#}
+{#                            const url = canvas.toDataURL('image/png');#}
+{#                            const a = document.createElement('a');#}
+{#                            a.href = url;#}
+{#                            a.download = 'Temperature.png';#}
+{#                            a.click();#}
+{#                        });#}
+{#                    </script>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#">Oxygen Level</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link " href="#">Heart Rate</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link " href="{% url 'exportData' %}">Export CSV</a>#}
+{#                </li>#}
+{#            </ul>#}
+{##}
+{#        </div>#}
 
-            <ul class="nav flex-column text-center">
-                <li class="nav-item">
-                    <a id="download" class="nav-link mt-2" href="#">ECG Report</a>
-                </li>
-                <script>
-                    document.getElementById('download').addEventListener('click', function () {
-                        const canvas = document.getElementById('myLineChart');
-                        const url = canvas.toDataURL('image/png');
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'ECG.png';
-                        a.click();
-                    });
-                </script>
-
-                <li class="nav-item">
-                    <a id="temp" class="nav-link" href="#">Temperature</a>
-                     <script>
-                    document.getElementById('temp').addEventListener('click', function () {
-                        const canvas = document.getElementById('myChart');
-                        const url = canvas.toDataURL('image/png');
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'Temperature.png';
-                        a.click();
-                    });
-                </script>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Oxygen Level</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#">Heart Rate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{% url 'exportData' %}">Export CSV</a>
-                </li>
-            </ul>
-
-        </div>
-
-        <div class="col-md-10 ">
+        <div class="col-md-12 ">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-9">
-                        <canvas id="myLineChart" height="75"></canvas>
+
+                    <div class="col-md-6">
+                        <canvas id="myLineChart" height="100"></canvas>
                         <script>
                             var ecg = document.getElementById('myLineChart').getContext('2d');
                             var myLineChart = new Chart(ecg, {
@@ -120,13 +170,46 @@
                                 }
                             });
                         </script>
-                        <h5 class="description text-center my-3"> ECG DATA</h5>
+                        <h5 class="description text-center"> ECG DATA</h5>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-6">
+                        <canvas id="gsrChart" height="100"></canvas>
+                        <script>
+                            var gsr = document.getElementById('gsrChart').getContext('2d');
+                            var myLineChart = new Chart(gsr, {
+                                type: 'line',
+                                data: {
+                                    labels: {{ ecg_cnt }}, // Your x-axis labels
+                                    datasets: [{
+                                        label: 'G S R',
+                                        data: {{gsr}}, // Your data points
+                                        backgroundColor: 'rgb(255,152,0)',
+                                        borderColor: 'rgb(255,0,0)',
+                                        borderWidth: 1,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        x: {
+                                            beginAtZero: true
+                                        },
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                        <h5 class="description text-center "> GSR DATA</h5>
+                    </div>
+
+
+                    <div class="col-md-4">
                         <div class="row">
 
-                            <canvas id="myChart" height="250"></canvas>
+                            <canvas id="myChart" height="200"></canvas>
                             <script>
                                 const ctx = document.getElementById('myChart');
 
@@ -137,8 +220,8 @@
                                         datasets: [{
                                             label: 'Temperature',
                                             data: {{ y }},
-                                            backgroundColor: 'rgb(43,124,237)',
-                                            borderColor: 'rgb(9,70,225)',
+                                             backgroundColor: 'rgb(255,152,0)',
+                                            borderColor: 'rgb(225,9,9)',
                                             borderWidth: 1
                                         }]
                                     },
@@ -155,17 +238,97 @@
 
                             <div class="col-1"></div>
 
-                            {% for t in z %}
-                                <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>
-                            {% endfor %}
+                            {#                            {% for t in z %}#}
+                            {#                                <div style="margin-left: 10px" class="col-2">  {{ t|date:'H:i:s' }}</div>#}
+                            {#                            {% endfor %}#}
 
-                            <div class="description text-center my-3">
-                                <h5>Last 5 Records of Temperature</h5>
+                            <div class="description text-center">
+                                <h5>Temperature</h5>
                             </div>
                         </div>
 
                     </div>
 
+                    <div class="col-md-4">
+                        <div class="row">
+
+                            <canvas id="heartChart" height="200"></canvas>
+                            <script>
+                                const heart = document.getElementById('heartChart');
+
+                                new Chart(heart, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: {{ hr }},
+                                        datasets: [{
+                                            label: 'Heart Rate',
+                                            data: {{ hr }},
+                                            backgroundColor: 'rgb(255,152,0)',
+                                            borderColor: 'rgb(225,9,9)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+
+
+                            <div class="col-1"></div>
+
+
+                            <div class="description text-center">
+                                <h5>Heart-rate</h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="row">
+
+                            <canvas id="spo2_chart" height="200"></canvas>
+                            <script>
+                                const spo2 = document.getElementById('spo2_chart');
+
+                                new Chart(spo2, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: {{ spo2 }},
+                                        datasets: [{
+                                            label: 'SPO2',
+                                            data: {{ spo2 }},
+                                            backgroundColor: 'rgb(255,152,0)',
+                                            borderColor: 'rgb(225,9,9)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+
+
+                            <div class="col-1"></div>
+
+
+                            <div class="description text-center">
+                                <h5>SPO2</h5>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
 

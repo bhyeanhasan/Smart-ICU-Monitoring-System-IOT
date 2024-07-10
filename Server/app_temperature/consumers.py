@@ -15,6 +15,10 @@ class TemperatureConsumer(AsyncJsonWebsocketConsumer):
     async def receive_json(self, content, **kwargs):
         patient_temperature = content['temperature']
         ecg = content['ecg']
+        gsr = content['gsr']
+        hr = content['hr']
+        ir = content['ir']
+        red = content['red']
         time = content['time']
 
         print("TEMPERATURE: \t", patient_temperature)
@@ -25,6 +29,10 @@ class TemperatureConsumer(AsyncJsonWebsocketConsumer):
         sensors = Sensors()
         sensors.patient_temp = patient_temperature
         sensors.ecg = ecg
+        sensors.gsr = gsr
+        sensors.hr = hr
+        sensors.ir = ir
+        sensors.red = red
         sensors.time = time
 
         await database_sync_to_async(sensors.save)()
