@@ -1,3 +1,6 @@
+
+![Interface](Data/Interface.png)
+
 # Setup Manual (Backend Server + Raspberry PI)
 
 ## Procedure:
